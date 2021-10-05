@@ -1,8 +1,4 @@
-{% extends 'base.html' %} {% load static %} {% block content %} {% if error %}
-<div class="alert alert-danger" role="alert" style="margin-top: 30px;">
-    <strong>{{error}}</strong>
-</div>
-{% endif %}
+{% extends 'base.html' %} {% load static %} {% block content %}
 
 <section class="testimonial py-5" id="testimonial">
     <div class="container">
@@ -20,6 +16,11 @@
             </div>
             <div class="col-md-8 py-5 border text-center">
                 <h4 class="pb-4">Please fill with your details</h4>
+                {% if error %}
+                <div class="alert alert-danger form-group col-md-6 pb-3" role="alert" style="margin: auto; margin-bottom: 10px;">
+                    <strong>{{error}}</strong>
+                </div>
+                {% endif %}
                 <form action="{% url 'signup' %}" method="POST" class="text-center">
                     {% csrf_token %}
                     <div class="form-row">
