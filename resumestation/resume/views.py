@@ -9,6 +9,7 @@ def home(request):
 @login_required
 def create(request):
   if request.method == 'POST':
+    print(request.POST)
     details = json.loads(request.POST['hidden-input-details'])
     username = details['username'][0]
     title = details['title'][0]
@@ -23,21 +24,30 @@ def create(request):
     skills1 = list(zip(personalSkills, level))
     skills2 = list(zip(professionalSkills, score))
 
-    start = json.loads(request.POST['hidden-input-education'])['start']
-    end = json.loads(request.POST['hidden-input-education'])['end']
-    course = json.loads(request.POST['hidden-input-education'])['course']
-    institution = json.loads(request.POST['hidden-input-education'])['institution']
-    description = json.loads(request.POST['hidden-input-education'])['description']
+    try:
+      start = json.loads(request.POST['hidden-input-education'])['start']
+      end = json.loads(request.POST['hidden-input-education'])['end']
+      course = json.loads(request.POST['hidden-input-education'])['course']
+      institution = json.loads(request.POST['hidden-input-education'])['institution']
+      description = json.loads(request.POST['hidden-input-education'])['description']
 
-    education = list(zip(start, end, course, institution, description))
+      education = list(zip(start, end, course, institution, description))
+    
+    except JSONDecodeError:
+      education=[]
 
-    workStarted = json.loads(request.POST['hidden-input-work'])['start']
-    workEndDate = json.loads(request.POST['hidden-input-work'])['end']
-    company = json.loads(request.POST['hidden-input-work'])['company']
-    designation = json.loads(request.POST['hidden-input-work'])['designation']
-    description = json.loads(request.POST['hidden-input-work'])['description']
 
-    work = list(zip(workStarted, workEndDate, company, designation, description))
+    try:
+      workStarted = json.loads(request.POST['hidden-input-work'])['start']
+      workEndDate = json.loads(request.POST['hidden-input-work'])['end']
+      company = json.loads(request.POST['hidden-input-work'])['company']
+      designation = json.loads(request.POST['hidden-input-work'])['designation']
+      description = json.loads(request.POST['hidden-input-work'])['description']
+
+      work = list(zip(workStarted, workEndDate, company, designation, description))
+    
+    except JSONDecodeError:
+      work=[]
 
     context = {
       'username': username, 'title': title, 'about': about, 'skills1': skills1, 'skills2': skills2, 'education': education, 'work': work
