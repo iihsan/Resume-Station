@@ -11,7 +11,7 @@ To get this project up and running locally on your computer:
 2. Clone the repository
    
    ```
-   git clone https://github.com/PragatiVerma18/Resume-Station/
+   git clone https://github.com/iihsan/Resume-Station/
    ```
 3. Assuming you have Python setup, run the following commands (if you're on Windows you may use `py` or `py -3` instead of `python` to start Python):
    
