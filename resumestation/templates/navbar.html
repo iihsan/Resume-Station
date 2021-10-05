@@ -1,0 +1,40 @@
+{% load static %} {% load avatar_tags %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark text-center">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="{% static 'logo.png' %}" class="d-inline-block align-top" height=60 width=60/>
+        </a>
+        <a href="{% url 'home' %}" class="h4" style="margin: auto !important; color: white;">
+            <p style="display: inline-block !important; padding-top: 12px;"> Resume Station </p>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav ml-auto">
+                {% if user.is_authenticated %}
+                <div style="padding-top: 18px;">
+                    <a class="navbar-brand" style="font-size: 15px;" href="{% url 'create' %}"><i class="fa fa-plus"></i> &nbsp; Create Resume</a>
+                    <a class="navbar-brand" style="font-size: 15px;" href="javascript:{document.getElementById('logout').submit()}">Logout</a>
+                </div>
+                <a href="{% url 'avatar_change' %}">
+      {% if request.user|has_avatar %}
+      {% avatar user 100 class="img-circle img-fluid" %}      
+      {% else %}
+      <img src="{% static 'avatar.png' %}" alt="" height="70" width="70">
+      {% endif %}
+      
+    </a>
+                <form id="logout" method="POST" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <input type="hidden" />
+                </form>
+                {% else %}
+                <a class="navbar-brand" style="font-size: 15px;" href="{% url 'signup' %}">Sign up</a>
+                <a class="navbar-brand" style="font-size: 15px;" href="{% url 'login' %}">Login</a> {% endif %}
+
+            </div>
+        </div>
+    </div>
+</nav>
